@@ -3,3 +3,33 @@
     padding: 0;
     box-sizing: border-box;
 }
+
+body {
+    display: flex;
+    justify-content: center;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+.inputSection {
+    padding: 2rem 4rem;
+}
+
+.searchInput{
+    font-style: inherit;
+    font-size: large;
+    padding: 1rem 1.5rem;
+    letter-spacing: 2px;
+    border-radius: 0.5rem;
+    outline: none;
+}
+.searchButton {
+    font-style: inherit;
+    font-size: large;
+    outline: none;
+    cursor: pointer;
+    padding: 0.5rem 1rem;
+    letter-spacing: 2px;
+    border-radius: 0.5rem;
+}
+.searchInput:focus {
+    outline: 1.5px solid black;
+}
