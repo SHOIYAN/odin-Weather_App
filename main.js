@@ -1,6 +1,10 @@
 "use strict";
 
-const city = "Lisbon";
+// dom inputs
+const cityInput = document.querySelector(".searchInput");
+const searchButton = document.querySelector(".searchButton");
+
+// code
 const API_KEY = "UV9EEZLAVA9YVA53UDZSYHDU7";
 
 async function fetchWeatherData(city) {
@@ -11,7 +15,6 @@ async function fetchWeatherData(city) {
       throw new Error(`HTTP error! status: ${weatherInfo.status}`);
     }
     const locationData = await weatherInfo.json();
-    console.log(locationData);
     return locationData;
   } catch (error) {
     console.error(error);
@@ -30,3 +33,13 @@ async function getData(city) {
     windspeed: data.currentConditions.windspeed,
   };
 }
+
+searchButton.addEventListener("click", async () => {
+  const city = cityInput.value.trim();
+  if (city) {
+    const data = await getData(city);
+    console.log(data.timezone, data.temp);
+  } else {
+    return alert("No City Entered");
+  }
+});
