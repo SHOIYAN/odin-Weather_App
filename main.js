@@ -34,11 +34,21 @@ async function getData(city) {
   };
 }
 
+function displayData(data) {
+  document.querySelector(".timezone").textContent = data.timezone;
+  document.querySelector(".temp").textContent = `${data.temp} °C`;
+  document.querySelector(".conditions").textContent = data.conditions;
+  document.querySelector(".humidity").textContent = data.humidity;
+  document.querySelector(".windSpeed").textContent = data.windspeed;
+  document.querySelector(".solarRadiation").textContent = data.solarradiation;
+  document.querySelector(".description").textContent = data.description;
+}
+
 searchButton.addEventListener("click", async () => {
   const city = cityInput.value.trim();
   if (city) {
     const data = await getData(city);
-    console.log(data.timezone, data.temp);
+    displayData(data);
   } else {
     return alert("No City Entered");
   }
