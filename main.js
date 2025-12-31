@@ -9,16 +9,11 @@ const API_KEY = "UV9EEZLAVA9YVA53UDZSYHDU7";
 
 async function fetchWeatherData(city) {
   const url = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${city}?key=${API_KEY}`;
-  try {
     const weatherInfo = await fetch(url);
     if (!weatherInfo.ok) {
       throw new Error(`HTTP error! status: ${weatherInfo.status}`);
     }
-    const locationData = await weatherInfo.json();
-    return locationData;
-  } catch (error) {
-    throw error;
-  }
+    return await weatherInfo.json();
 }
 
 async function getData(city) {
@@ -131,13 +126,18 @@ cityInput.addEventListener("keypress", (e) => {
 searchButton.addEventListener("click", async () => {
   const city = cityInput.value.trim();
   cityInput.value = '';
-  if (city) {
-    addLoadingMessage();
-    const data = await getData(city);
-    addWeatherDataSection();
-    displayData(data);
-  } else {
-    return alert("No City Entered");
+  try {
+    if (city) {
+      addLoadingMessage();
+      const data = await getData(city);
+      addWeatherDataSection();
+      displayData(data);
+    } else {
+      return alert("No City Entered");
+    }
+  }
+  catch (error) {
+    showError(error.message);
   }
 });
 
