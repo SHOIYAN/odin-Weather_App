@@ -31,7 +31,7 @@ async function getData(city) {
 
 function displayData(data) {
   document.querySelector(".timezone").textContent = data.timezone;
-  document.querySelector(".temp").textContent = `${data.temp} °C`;
+  document.querySelector(".temp").textContent = `${data.temp} °F`;
   document.querySelector(".conditions").textContent = data.conditions;
   document.querySelector(".humidity").textContent = data.humidity;
   document.querySelector(".windSpeed").textContent = data.windspeed;
