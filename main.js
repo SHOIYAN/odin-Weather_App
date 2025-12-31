@@ -17,7 +17,7 @@ async function fetchWeatherData(city) {
     const locationData = await weatherInfo.json();
     return locationData;
   } catch (error) {
-    showError(error);
+    throw error;
   }
 }
 
@@ -130,6 +130,7 @@ cityInput.addEventListener("keypress", (e) => {
 
 searchButton.addEventListener("click", async () => {
   const city = cityInput.value.trim();
+  cityInput.value = '';
   if (city) {
     addLoadingMessage();
     const data = await getData(city);
