@@ -45,9 +45,13 @@ function displayData(data) {
 }
 
 function addLoadingMessage() {
+  const welcomeSection = document.querySelector(".welcomeSection");
   const dataSection = document.querySelector(".dataSection");
   if (dataSection) {
     dataSection.remove();
+  }
+  if (welcomeSection){
+    welcomeSection.remove();
   }
   const loadingHtml = `
   <div id="content-loader">
@@ -85,6 +89,19 @@ function addWeatherDataSection() {
   document.body.insertAdjacentHTML("beforeend", dataSection);
 }
 
+function showWelcomeMessage() {
+  const welcomeSectionHTML = `<section class="welcomeSection">
+      <div class="weather-content">
+        <h1>🌤️ Welcome to Weather App</h1>
+        <p>Enter a city name to get started</p>
+        <p class="hint">
+          Search for any city to see current weather conditions
+        </p>
+      </div>
+    </section>`;
+  document.body.insertAdjacentHTML("beforeend",welcomeSectionHTML);
+}
+
 searchButton.addEventListener("click", async () => {
   const city = cityInput.value.trim();
   if (city) {
@@ -96,3 +113,5 @@ searchButton.addEventListener("click", async () => {
     return alert("No City Entered");
   }
 });
+
+window.addEventListener("DOMContentLoaded", showWelcomeMessage);
