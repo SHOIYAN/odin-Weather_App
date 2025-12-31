@@ -122,6 +122,12 @@ function clearUI () {
   };
 }
 
+cityInput.addEventListener("keypress", (e) => {
+  if (e.key === "Enter") {
+    searchButton.click();
+  }
+});
+
 searchButton.addEventListener("click", async () => {
   const city = cityInput.value.trim();
   if (city) {
