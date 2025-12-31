@@ -45,14 +45,7 @@ function displayData(data) {
 }
 
 function addLoadingMessage() {
-  const welcomeSection = document.querySelector(".welcomeSection");
-  const dataSection = document.querySelector(".dataSection");
-  if (dataSection) {
-    dataSection.remove();
-  }
-  if (welcomeSection){
-    welcomeSection.remove();
-  }
+  clearUI();
   const loadingHtml = `
   <div id="content-loader">
     <p>Loading...</p>
@@ -62,10 +55,7 @@ function addLoadingMessage() {
 }
 
 function addWeatherDataSection() {
-  const loader = document.getElementById("content-loader");
-  if (loader) {
-    loader.remove();
-  }
+  clearUI();
   const dataSection = `<section class="dataSection">
       <p class="timezone"></p>
       <p class="temp"></p>
@@ -100,6 +90,21 @@ function showWelcomeMessage() {
       </div>
     </section>`;
   document.body.insertAdjacentHTML("beforeend",welcomeSectionHTML);
+}
+
+function clearUI () {
+  const welcomeSection = document.querySelector(".welcomeSection");
+  const dataSection = document.querySelector(".dataSection");
+  const loader = document.getElementById("content-loader");
+  if (loader) {
+    loader.remove();
+  }
+  if (dataSection) {
+    dataSection.remove();
+  }
+  if (welcomeSection){
+    welcomeSection.remove();
+  }
 }
 
 searchButton.addEventListener("click", async () => {
