@@ -44,10 +44,53 @@ function displayData(data) {
   document.querySelector(".description").textContent = data.description;
 }
 
+function addLoadingMessage() {
+  const dataSection = document.querySelector(".dataSection");
+  if (dataSection) {
+    dataSection.remove();
+  }
+  const loadingHtml = `
+  <div id="content-loader">
+    <p>Loading...</p>
+  </div>
+`;
+  document.body.insertAdjacentHTML("beforeend", loadingHtml);
+}
+
+function addWeatherDataSection() {
+  const loader = document.getElementById("content-loader");
+  if (loader) {
+    loader.remove();
+  }
+  const dataSection = `<section class="dataSection">
+      <p class="timezone"></p>
+      <p class="temp"></p>
+      <p class="conditions"></p>
+      <div class="extraDetails">
+        <div>
+          <span class="label">Humidity: </span>
+          <span class="humidity value"></span>
+        </div>
+        <div>
+          <span class="label">Wind Speed:</span>
+          <span class="windSpeed value"></span>
+        </div>
+        <div>
+          <span class="label">Solar Radiation:</span>
+          <span class="solarRadiation value"></span>
+        </div>
+      </div>
+      <p class="description"></p>
+    </section>`;
+  document.body.insertAdjacentHTML("beforeend", dataSection);
+}
+
 searchButton.addEventListener("click", async () => {
   const city = cityInput.value.trim();
   if (city) {
+    addLoadingMessage();
     const data = await getData(city);
+    addWeatherDataSection();
     displayData(data);
   } else {
     return alert("No City Entered");
