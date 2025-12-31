@@ -17,7 +17,7 @@ async function fetchWeatherData(city) {
     const locationData = await weatherInfo.json();
     return locationData;
   } catch (error) {
-    console.error(error);
+    showError(error);
   }
 }
 
@@ -92,8 +92,20 @@ function showWelcomeMessage() {
   document.body.insertAdjacentHTML("beforeend",welcomeSectionHTML);
 }
 
+function showError(message) {
+  clearUI();
+  const errorSection = `<section class="errorSection">
+      <div class="error-content">
+        <p>❌ ${message}</p>
+        <p class="hint">Please check the city name and try again.</p>
+      </div>
+    </section>`;
+  document.body.insertAdjacentHTML('beforeend',errorSection);
+}
+
 function clearUI () {
   const welcomeSection = document.querySelector(".welcomeSection");
+  const errorSection = document.querySelector(".errorSection");
   const dataSection = document.querySelector(".dataSection");
   const loader = document.getElementById("content-loader");
   if (loader) {
@@ -105,6 +117,9 @@ function clearUI () {
   if (welcomeSection){
     welcomeSection.remove();
   }
+  if (errorSection) {
+    errorSection.remove()
+  };
 }
 
 searchButton.addEventListener("click", async () => {

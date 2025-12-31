@@ -104,3 +104,12 @@ body {
 .weather-content h1 {
     margin-bottom: 1rem;
 }
+
+/* error section */
+.error-content{
+    display: flex;
+    flex-direction: column;
+    letter-spacing: 2px;
+    padding: 4rem 2rem;
+    gap: 1rem;
+}
