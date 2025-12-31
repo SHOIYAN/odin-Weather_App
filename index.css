@@ -113,3 +113,26 @@ body {
     padding: 4rem 2rem;
     gap: 1rem;
 }
+
+/* toggle section */
+
+.temp-container {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.toggleUnit {
+    font-family: inherit;
+    font-size: medium;
+    padding: 0.5rem 0.75rem;
+    cursor: pointer;
+    border: 1px solid black;
+    border-radius: 0.25rem;
+    background-color: white;
+    letter-spacing: 1px;
+}
+
+.toggleUnit:hover {
+    background-color: #f0f0f0;
+}

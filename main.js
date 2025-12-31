@@ -7,6 +7,11 @@ const searchButton = document.querySelector(".searchButton");
 // code
 const API_KEY = "UV9EEZLAVA9YVA53UDZSYHDU7";
 
+// toggle code
+let isCelsius = false;
+let currentTempF = null;
+
+
 async function fetchWeatherData(city) {
   const url = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${city}?key=${API_KEY}`;
     const weatherInfo = await fetch(url);
@@ -30,13 +35,24 @@ async function getData(city) {
 }
 
 function displayData(data) {
+  currentTempF = data.temp;
   document.querySelector(".timezone").textContent = data.timezone;
-  document.querySelector(".temp").textContent = `${data.temp} °F`;
+  updateTemperatureDisplay();
   document.querySelector(".conditions").textContent = data.conditions;
   document.querySelector(".humidity").textContent = data.humidity;
   document.querySelector(".windSpeed").textContent = data.windspeed;
   document.querySelector(".solarRadiation").textContent = data.solarradiation;
   document.querySelector(".description").textContent = data.description;
+}
+
+function updateTemperatureDisplay() {
+  const tempElement = document.querySelector(".temp");
+  if (isCelsius) {
+    const celsius = convertoCelcius(currentTempF);
+    tempElement.textContent = `${celsius} °C`;
+  } else {
+    tempElement.textContent = `${currentTempF} °F`;
+  }
 }
 
 function addLoadingMessage() {
@@ -53,7 +69,10 @@ function addWeatherDataSection() {
   clearUI();
   const dataSection = `<section class="dataSection">
       <p class="timezone"></p>
-      <p class="temp"></p>
+      <div class="temp-container">
+        <p class="temp"></p>
+        <button class="toggleUnit">°C</button>
+      </div>
       <p class="conditions"></p>
       <div class="extraDetails">
         <div>
@@ -72,6 +91,12 @@ function addWeatherDataSection() {
       <p class="description"></p>
     </section>`;
   document.body.insertAdjacentHTML("beforeend", dataSection);
+  const toggleButton = document.querySelector(".toggleUnit");
+  toggleButton.addEventListener("click", () => {
+    isCelsius = !isCelsius;
+    updateTemperatureDisplay();
+    toggleButton.textContent = isCelsius ? "°F" : "°C";
+  });
 }
 
 function showWelcomeMessage() {
@@ -85,6 +110,10 @@ function showWelcomeMessage() {
       </div>
     </section>`;
   document.body.insertAdjacentHTML("beforeend",welcomeSectionHTML);
+}
+
+function convertoCelcius(fahrenheit) {
+  return ((fahrenheit - 32) * 5/9).toFixed(1);
 }
 
 function showError(message) {
@@ -130,6 +159,7 @@ searchButton.addEventListener("click", async () => {
     if (city) {
       addLoadingMessage();
       const data = await getData(city);
+      isCelsius = false;
       addWeatherDataSection();
       displayData(data);
     } else {
